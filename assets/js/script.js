@@ -18,19 +18,19 @@ function loadNotes() {
 		var note = JSON.parse(localStorage.getItem(id));
 		if (note) {
 			$(this).val(note.input);
-		}
-		let currentTime = moment().format('h a');
+			let time = $(this).siblings("p").text();
+			console.log(time);
  
-		if ($(this).siblings("p").text() < currentTime) {
-			$(this).addClass("past");
-		} else if ($(this).siblings("p").text() > currentTime) {
-			$(this).addClass("future");
-		} else {
-			$(this).addClass("present");
+				if ((moment().isAfter(time))) {
+					$(this).addClass("past");
+				} else if ((Math.abs(moment().diff(time, "hours")) <= 2)) {
+					$(this).addClass("present");
+				} else {
+					$(this).addClass("future");
+				}
 		}
+		
 	});
-
-
 }
 loadNotes();
 
